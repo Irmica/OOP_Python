@@ -1,33 +1,53 @@
 import PersonClasses as pc
-"""Модуль с сервисными классами"""
 
 
-class Iterable:
-    """Класс для вывода списков студентов потока в косоль"""
+class PersonService(pc.Person):
+    def create_person(self, name: str, age: int):
+        super().__init__(name, age)
+
+    def read_person(self):
+        pass
+
+    def update_person(self):
+        pass
+
+    def delete_person(self):
+        pass
+
+
+class StudentService(PersonService):
     @staticmethod
-    def out(stream: list) -> None:
-        print(f"Список студентов {stream[0]} потока.")
-        for i in range(1, len(stream)):
-            print(
-                f"Список группы {pc.StudentGroup.get_number_of_group(stream[i])}:")
-            for j in range(1, pc.StudentGroup.get_size_of_group(stream[i]) + 1):
-                member = pc.StudentGroup.get_member_by_index(stream[i], j)
-                name = pc.Student.get_name(member)
-                print(f"{j}. {name}")
+    def create_student(name: str, age: int):
+        std = pc.Student(name, age)
+        return std
 
-
-class Sorting:
-    """Класс для сортировки потока по количеству студентов в группе.
-    Сортировка по возрастанию. Метод сортировки - сортировка выбором"""
     @staticmethod
-    def sort_group_by_members(stream: list):
-        for i in range(1, len(stream) - 1):
-            min_idx = i
-            for idx in range(i + 1, len(stream) - 1):
-                if pc.StudentGroup.get_size_of_group(stream[idx]) < pc.StudentGroup.get_size_of_group(stream[min_idx]):
-                    min_idx = idx
-            stream[i], stream[min_idx] = stream[min_idx], stream[i]
-        return stream
+    def add_student_to_all_list(lst: list, student: pc.Student):
+        lst.append(student)
+        
+    @staticmethod
+    def output_to_the_console_of_all_students(lst: list):
+        for i in range(0, len(lst)):
+            pc.Student.output_student(lst[i])
 
-class ComparePerson:
-    def 
+class AccountController: 
+    """Класс для вычисления среднего возраста студентов, учителей и сотрудников"""
+    @staticmethod
+    def averege_age_student(lst: list):
+        sum = 0
+        for std in lst:
+            sum += pc.Person.get_age(std)
+        return sum/len(lst)    
+
+class TeacherService(PersonService, pc.Teacher):
+    def create_teacher(self, name: str, age: int, degree: str):
+        super().__init__(name, age, degree)
+
+
+class Employee(PersonService, pc.Employee):
+    def create_employee(self, name: str, age: int, specialization: str):
+        super().__init__(name, age, specialization)
+
+
+
+

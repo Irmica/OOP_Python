@@ -1,5 +1,7 @@
-import Services as sc
-"""Модуль с классами действующих лиц)"""
+import Processing as pr
+"""Модуль с классами действующих лиц"""
+
+
 class Person:
     """Родительский класс для студентов, учетелей и сотрудников"""
 
@@ -37,9 +39,12 @@ class Student(Person):
     def get_id(self):
         return self.id
 
+    def output_student(self):
+        print(f"ID {self.id} {self.name}")
+
 
 class Teacher(Person):
-    """Клас Учитель, не используется"""
+    """Клас Учитель"""
 
     def __init__(self, name: str, age: int, degree: str) -> None:
         super().__init__(name, age)
@@ -52,9 +57,10 @@ class Teacher(Person):
 
     def set_degree(self, new_degree: str):
         self.degree = new_degree
-        
+
+
 class Employee(Person):
-    """Класс Сотрудник, не используется"""
+    """Класс Сотрудник"""
 
     def __init__(self, name: str, age: int, specialization: str) -> None:
         super().__init__(name, age)
@@ -89,11 +95,15 @@ class StudentGroup:
         size = len(self.list_of_students) - 1
         return size
 
-    def get_member_by_index(self, index):
+    def get_member_by_index(self, index): # метод взятия студента по индексу
         return self.list_of_students[index]
 
+    def unpack_students(self, lst: list): # метод распаковки студетов из готовых групп
+        lst.extend(self.list_of_students[1:])
 
-class StudentStream(sc.Iterable, sc.Sorting):
+
+class StudentStream(pr.Iterable, pr.Sorting):
+    """Класс Студенческого потока"""
     NUMBER_OF_STREAM = 1  # Номер потока присваивается по порядку
 
     def __init__(self) -> None:
